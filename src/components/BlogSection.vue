@@ -14,7 +14,8 @@ function setActiveBlog(blog) {
 
 
 <template>
-    <div @click="setActiveBlog(blogsProp)" class="blogBorder selectable">
+    <div @click="setActiveBlog(blogsProp)" class="blogBorder" selectable type="button" data-bs-toggle="modal"
+        data-bs-target="#projectModal">
         <h4>{{ blogsProp.title }}</h4>
         <div class="blogImage">
             <img v-if="blogsProp.imageUrl" :src="blogsProp.imageUrl" alt="">

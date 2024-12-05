@@ -6,6 +6,7 @@ import { Blog } from "@/models/Blog.js"
 class BlogsService{
     
     setActiveBlog(blog) {
+        logger.log('[Active Blog]', blog.title)
         AppState.activeBlog = blog
     }
 

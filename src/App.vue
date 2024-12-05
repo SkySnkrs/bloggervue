@@ -1,4 +1,5 @@
 <script setup>
+import BlogModal from './components/BlogModal.vue';
 import Navbar from './components/Navbar.vue';
 
 </script>
@@ -10,6 +11,7 @@ import Navbar from './components/Navbar.vue';
   <main>
     <router-view />
   </main>
+  <BlogModal />
 </template>
 
 <style lang="scss">
