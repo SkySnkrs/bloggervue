@@ -7,8 +7,16 @@ export class Blog{
         this.tags = data.tags, 
         this.creator = data.creator,
         this.createdAt = new Date(data.createdAt), 
-        this.updatedAt = new Date(data.updatedAt)
+        this.updatedAt = new Date(data.updatedAt),
         this.imageUrl = data.imgUrl
+    }
+
+    get FullDate(){
+        return this.createdAt.toLocaleDateString('en-us', {month: "long", day : "2-digit", year: "numeric" } )
+    }
+
+    get LastUpdated(){
+        return this.createdAt.toLocaleDateString('en-us', {month: "long", day : "2-digit", year: "numeric"})
     }
 }
 
