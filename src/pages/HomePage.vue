@@ -1,37 +1,36 @@
 <script setup>
+import BlogSection from '@/components/BlogSection.vue';
+import { AppState } from '@/AppState';
+import { blogsService } from '@/services/BlogsService';
+import Pop from '@/utils/Pop';
+import { computed, onMounted } from 'vue';
+
+const blogs = computed(() => AppState.blogs)
+
+onMounted(() => {
+  getBlogs()
+})
+
+async function getBlogs() {
+  try {
+    await blogsService.getBlogs()
+  }
+  catch (error) {
+    Pop.error(error);
+  }
+}
 
 </script>
 
 <template>
-  <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <div class="home-card p-5 card align-items-center shadow rounded elevation-3">
-      <img src="@/assets/img/cw-circle-logo.png" alt="CodeWorks Logo"
-        class="rounded-circle">
-      <h1 class="my-5 bg-dark text-white p-3 rounded text-center">
-        Vue 3 Starter
-      </h1>
+  <section class="container-fluid">
+    <h2 class="mt-3">Blogs:</h2>
+    <div class="row">
+      <div v-for="blog in blogs" v-bind:key="blog.id" class="col-md-4 mt-3">
+        <BlogSection :blogsProp="blog" />
+      </div>
     </div>
-  </div>
+  </section>
 </template>
 
-<style scoped lang="scss">
-.home {
-  display: grid;
-  height: 80vh;
-  place-content: center;
-  text-align: center;
-  user-select: none;
-
-  .home-card {
-    width: clamp(500px, 50vw, 100%);
-
-    >img {
-      height: 200px;
-      max-width: 200px;
-      width: 100%;
-      object-fit: contain;
-      object-position: center;
-    }
-  }
-}
-</style>
+<style scoped lang="scss"></style>
