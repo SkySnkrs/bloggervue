@@ -1,16 +1,24 @@
 <script setup>
 import { AppState } from '@/AppState';
-import { computed } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 
 const blog = computed(() => AppState.activeBlog)
+const profileLoaded = ref(false)
+
+watch(blog, (newb, oldb) => {
+    if (newb?.creator.id != oldb?.creator.id) {
+        profileLoaded.value = false
+    }
+})
+
 </script>
 
 
 <template>
-    <div class="modal" tabindex="-1" id="projectModal">
+    <div class="modal" tabindex="-1" id="projectModal" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div v-if="blog != null" class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">{{ blog?.title }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -19,7 +27,8 @@ const blog = computed(() => AppState.activeBlog)
                     <div class="d-flex justify-content-center align-content-center">
                         <div class="creatorSection">
                             <div class="text-center profile-Border">
-                                <img :src="blog?.creator.picture" alt="" class="profile-Image">
+                                <img @load="profileLoaded = true" :src="blog?.creator.picture" alt=""
+                                    class="profile-Image" :class="{ showImage: profileLoaded }">
                             </div>
                             <div class="text-center creatorText mt-2 d-flex">
                                 <p>Posted By:</p>
@@ -52,6 +61,12 @@ const blog = computed(() => AppState.activeBlog)
     border-radius: 50%;
     object-fit: cover;
     object-position: center;
+    opacity: 0;
+}
+
+.showImage {
+    opacity: 1;
+    transition: opacity .2s linear;
 }
 
 .creator {

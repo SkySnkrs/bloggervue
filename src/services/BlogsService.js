@@ -10,6 +10,8 @@ class BlogsService{
         AppState.activeBlog = blog
     }
 
+    
+
     async getBlogs() {
         AppState.blogs = []
         const response = await api.get('api/blogs')

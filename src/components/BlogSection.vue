@@ -7,8 +7,8 @@ defineProps({
     blogsProp: { type: Blog, required: true }
 })
 
-function setActiveBlog(blog) {
-    blogsService.setActiveBlog(blog)
+async function setActiveBlog(blog) {
+    await blogsService.setActiveBlog(blog)
 }
 </script>
 
